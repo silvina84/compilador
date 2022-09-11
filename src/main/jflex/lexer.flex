@@ -33,6 +33,7 @@ LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
 Identation =  [ \t\f]
 
+Space = " "
 Plus = "+"
 Mult = "*"
 Sub = "-"
@@ -40,12 +41,17 @@ Div = "/"
 Assig = "="
 OpenBracket = "("
 CloseBracket = ")"
+QuotationMark = \"
+AllowedSymbols = {Plus} | {Mult} | {Sub} | {Div} | {Assig} | {OpenBracket} | {CloseBracket}
 Letter = [a-zA-Z]
 Digit = [0-9]
 
 WhiteSpace = {LineTerminator} | {Identation}
 Identifier = {Letter} ({Letter}|{Digit})*
 IntegerConstant = {Digit}+
+StringConstant = {QuotationMark} ({Letter}|{Digit}|{Space}|{AllowedSymbols})* {QuotationMark}
+Comment = {Div}{Mult} ({Letter}|{Digit}|{Space}|{AllowedSymbols})* {Mult}{Div}
+
 
 %%
 
@@ -66,6 +72,7 @@ IntegerConstant = {Digit}+
   {Assig}                                   { return symbol(ParserSym.ASSIG); }
   {OpenBracket}                             { return symbol(ParserSym.OPEN_BRACKET); }
   {CloseBracket}                            { return symbol(ParserSym.CLOSE_BRACKET); }
+  {Comment}                                 { return symbol(ParserSym.EOF); }
 
   /* whitespace */
   {WhiteSpace}                   { /* ignore */ }
