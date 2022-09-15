@@ -13,55 +13,55 @@ import java.nio.charset.StandardCharsets;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@Disabled
+
 public class ParserTest {
 
-    @Test
+    @Disabled
     public void assignmentWithExpression() throws Exception {
         compilationSuccessful("c=d*(e-21)/4");
     }
 
-    @Test
+    @Disabled
     public void syntaxError() {
         compilationError("1234");
     }
 
-    @Test
+    @Disabled
     void assignments() throws Exception {
         compilationSuccessful(readFromFile("assignments.txt"));
     }
 
-    @Test
+    @Disabled
     void write() throws Exception {
         compilationSuccessful(readFromFile("write.txt"));
     }
 
-    @Test
+    @Disabled
     void read() throws Exception {
         compilationSuccessful(readFromFile("read.txt"));
     }
 
-    @Test
+    @Disabled
     void comment() throws Exception {
         compilationSuccessful(readFromFile("comment.txt"));
     }
 
-    @Test
+    @Disabled
     void init() throws Exception {
         compilationSuccessful(readFromFile("init.txt"));
     }
 
-    @Test
+    @Disabled
     void and() throws Exception {
         compilationSuccessful(readFromFile("and.txt"));
     }
 
-    @Test
+    @Disabled
     void or() throws Exception {
         compilationSuccessful(readFromFile("or.txt"));
     }
 
-    @Test
+    @Disabled
     void not() throws Exception {
         compilationSuccessful(readFromFile("not.txt"));
     }
@@ -71,7 +71,7 @@ public class ParserTest {
         compilationSuccessful(readFromFile("if.txt"));
     }
 
-    @Test
+    @Disabled
     void whileStatement() throws Exception {
         compilationSuccessful(readFromFile("while.txt"));
     }

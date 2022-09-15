@@ -45,6 +45,19 @@ QuotationMark = \"
 AllowedSymbols = {Plus} | {Mult} | {Sub} | {Div} | {Assig} | {OpenBracket} | {CloseBracket}
 Letter = [a-zA-Z]
 Digit = [0-9]
+COMA = ","
+PUNTO_COMA = ";"
+OPERACION_TIPO = ":"
+CORCH_ABIERTO = "["
+CORCH_CERRADO = "]"
+LLAVE_ABIERTA = "{"
+LLAVE_CERRADA = "}"
+MENOR_IG = "<="
+MENOR = "<"
+MAYOR_IG = ">="
+MAYOR = ">"
+IGUAL = "=="
+DISTINTO = "!="
 
 WhiteSpace = {LineTerminator} | {Identation}
 Identifier = {Letter} ({Letter}|{Digit})*
@@ -60,7 +73,11 @@ Comment = {Div}{Mult} ({Letter}|{Digit}|{Space}|{AllowedSymbols})* {Mult}{Div}
 
 <YYINITIAL> {
   /* identifiers */
-  {Identifier}                             { return symbol(ParserSym.IDENTIFIER, yytext()); }
+  {Identifier}                             {
+                                            if (new String("If").equals(yytext())) {
+                                                return symbol(ParserSym.IF, yytext());
+                                            }
+                                            return symbol(ParserSym.IDENTIFIER, yytext()); }
   /* Constants */
   {IntegerConstant}                        { return symbol(ParserSym.INTEGER_CONSTANT, yytext()); }
 
@@ -73,6 +90,18 @@ Comment = {Div}{Mult} ({Letter}|{Digit}|{Space}|{AllowedSymbols})* {Mult}{Div}
   {OpenBracket}                             { return symbol(ParserSym.OPEN_BRACKET); }
   {CloseBracket}                            { return symbol(ParserSym.CLOSE_BRACKET); }
   {Comment}                                 { return symbol(ParserSym.EOF); }
+  {COMA}                                    { return symbol(ParserSym.COMA); }
+  {PUNTO_COMA}                              { return symbol(ParserSym.PUNTO_COMA); }
+  {OPERACION_TIPO}                          { return symbol(ParserSym.OPERACION_TIPO); }
+  {CORCH_ABIERTO}                           { return symbol(ParserSym.CORCH_ABIERTO); }
+  {CORCH_CERRADO}                           { return symbol(ParserSym.CORCH_CERRADO); }
+  {LLAVE_ABIERTA}                           { return symbol(ParserSym.LLAVE_ABIERTA); }
+  {LLAVE_CERRADA}                           { return symbol(ParserSym.LLAVE_CERRADA); }
+  {MENOR_IG}                                { return symbol(ParserSym.MENOR_IG); }
+  {MAYOR_IG}                                { return symbol(ParserSym.MAYOR_IG); }
+  {MAYOR}                                   { return symbol(ParserSym.MAYOR); }
+  {IGUAL}                                   { return symbol(ParserSym.IGUAL); }
+  {DISTINTO}                                { return symbol(ParserSym.DISTINTO); }
 
   /* whitespace */
   {WhiteSpace}                   { /* ignore */ }

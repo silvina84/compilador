@@ -15,6 +15,23 @@ terminal OPEN_BRACKET;
 terminal CLOSE_BRACKET;
 terminal INTEGER_CONSTANT;
 terminal IDENTIFIER;
+terminal IF;
+terminal COMA;
+terminal PUNTO_COMA;
+terminal OPERACION_TIPO;
+terminal CORCH_ABIERTO;
+terminal CORCH_CERRADO;
+terminal LLAVE_ABIERTA;
+terminal LLAVE_CERRADA;
+terminal MENOR_IG;
+terminal MENOR;
+terminal MAYOR_IG;
+terminal MAYOR;
+terminal IGUAL;
+terminal DISTINTO;
+terminal WHILE;
+terminal AND;
+terminal OR;
 
 // Non Terminals
 non terminal sentence;

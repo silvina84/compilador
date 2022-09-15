@@ -24,7 +24,7 @@ public class LexerTest {
 
 
   @Test
-  public void comment() throws Exception{
+  public void comment() throws Exception {
     scan("/*This is a comment*/");
     assertThat(nextToken()).isEqualTo(ParserSym.EOF);
     scan("/*CommentWithoutSpaces*/");
@@ -35,6 +35,19 @@ public class LexerTest {
     assertThat(nextToken()).isEqualTo(ParserSym.EOF);
   }
 
+  @Test
+  public void testIf() throws Exception {
+    scan("If");
+    assertThat(nextToken()).isEqualTo(ParserSym.IF);
+
+    scan("If (a + b)");
+    assertThat(nextToken()).isEqualTo(ParserSym.IF);
+    assertThat(nextToken()).isEqualTo(ParserSym.OPEN_BRACKET);
+    assertThat(nextToken()).isEqualTo(ParserSym.IDENTIFIER);
+    assertThat(nextToken()).isEqualTo(ParserSym.PLUS);
+    assertThat(nextToken()).isEqualTo(ParserSym.IDENTIFIER);
+    assertThat(nextToken()).isEqualTo(ParserSym.CLOSE_BRACKET);
+  }
   @Disabled
   public void invalidStringConstantLength() {
     assertThrows(InvalidLengthException.class, () -> {
