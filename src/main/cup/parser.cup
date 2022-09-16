@@ -32,6 +32,8 @@ terminal DISTINTO;
 terminal WHILE;
 terminal AND;
 terminal OR;
+terminal STRING_CONSTANT;
+terminal NEGATIVE_INTEGER_CONSTANT;
 
 // Non Terminals
 non terminal sentence;

@@ -19,10 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class LexerTest {
-
   private Lexer lexer;
-
-
   @Test
   public void comment() throws Exception {
     scan("/*This is a comment*/");
@@ -36,6 +33,11 @@ public class LexerTest {
   }
 
   @Test
+  public void integerConstant() throws Exception {
+    scan("%d".formatted(10));
+    assertThat(nextToken()).isEqualTo(ParserSym.INTEGER_CONSTANT);
+  }
+  @Test
   public void testIf() throws Exception {
     scan("If");
     assertThat(nextToken()).isEqualTo(ParserSym.IF);
@@ -48,7 +50,7 @@ public class LexerTest {
     assertThat(nextToken()).isEqualTo(ParserSym.IDENTIFIER);
     assertThat(nextToken()).isEqualTo(ParserSym.CLOSE_BRACKET);
   }
-  @Disabled
+  @Test
   public void invalidStringConstantLength() {
     assertThrows(InvalidLengthException.class, () -> {
       scan("\"%s\"".formatted(getRandomString()));
@@ -56,7 +58,7 @@ public class LexerTest {
     });
   }
 
-  @Disabled
+  @Test
   public void invalidIdLength() {
     assertThrows(InvalidLengthException.class, () -> {
       scan(getRandomString());
@@ -64,7 +66,7 @@ public class LexerTest {
     });
   }
 
-  @Disabled
+  @Test
   public void invalidPositiveIntegerConstantValue() {
     assertThrows(InvalidIntegerException.class, () -> {
       scan("%d".formatted(9223372036854775807L));
@@ -97,7 +99,7 @@ public class LexerTest {
     //assertThat(nextToken()).isEqualTo(ParserSym.EOF);
   }
 
-  @Disabled
+  @Test
   public void unknownCharacter() {
     assertThrows(UnknownCharacterException.class, () -> {
       scan("#");
@@ -117,7 +119,6 @@ public class LexerTest {
   private int nextToken() throws IOException, CompilerException {
     return lexer.next_token().sym;
   }
-
   private static String getRandomString() {
     return new RandomStringGenerator.Builder()
             .filteredBy(CharacterPredicates.LETTERS)

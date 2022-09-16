@@ -42,7 +42,6 @@ Assig = "="
 OpenBracket = "("
 CloseBracket = ")"
 QuotationMark = \"
-AllowedSymbols = {Plus} | {Mult} | {Sub} | {Div} | {Assig} | {OpenBracket} | {CloseBracket}
 Letter = [a-zA-Z]
 Digit = [0-9]
 COMA = ","
@@ -60,6 +59,7 @@ IGUAL = "=="
 DISTINTO = "!="
 If = "If"
 While = "While"
+AllowedSymbols = {Plus} | {Mult} | {Sub} | {Div} | {Assig} | {OpenBracket} | {CloseBracket}
 
 WhiteSpace = {LineTerminator} | {Identation}
 Identifier = {Letter} ({Letter}|{Digit})*
@@ -78,9 +78,15 @@ Comment = {Div}{Mult} ({Letter}|{Digit}|{Space}|{AllowedSymbols})* {Mult}{Div}
   {If}                                      { return symbol(ParserSym.IF); }
   {While}                                   { return symbol(ParserSym.WHILE); }
   /* identifiers */
-  {Identifier}                              {return symbol(ParserSym.IDENTIFIER, yytext()); }
+  {Identifier}                              { if (yylength() > 40) throw new InvalidLengthException("Id max length is 40 characters");
+                                              return symbol(ParserSym.IDENTIFIER, yytext()); }
   /* Constants */
-  {IntegerConstant}                         { return symbol(ParserSym.INTEGER_CONSTANT, yytext()); }
+  {IntegerConstant}                         { if (yylength() > 10) throw new InvalidIntegerException("Integer max value is: ");
+                                              return symbol(ParserSym.INTEGER_CONSTANT, yytext());
+                                            }
+  {StringConstant}                          { if (yylength() > 40) throw new InvalidLengthException("String constats supports until 40 characters");
+                                              return symbol(ParserSym.STRING_CONSTANT);
+                                            }
 
   /* operators */
   {Plus}                                    { return symbol(ParserSym.PLUS); }
