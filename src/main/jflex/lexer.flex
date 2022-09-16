@@ -58,6 +58,8 @@ MAYOR_IG = ">="
 MAYOR = ">"
 IGUAL = "=="
 DISTINTO = "!="
+If = "If"
+While = "While"
 
 WhiteSpace = {LineTerminator} | {Identation}
 Identifier = {Letter} ({Letter}|{Digit})*
@@ -72,14 +74,13 @@ Comment = {Div}{Mult} ({Letter}|{Digit}|{Space}|{AllowedSymbols})* {Mult}{Div}
 /* keywords */
 
 <YYINITIAL> {
+  /* reserverd words */
+  {If}                                      { return symbol(ParserSym.IF); }
+  {While}                                   { return symbol(ParserSym.WHILE); }
   /* identifiers */
-  {Identifier}                             {
-                                            if (new String("If").equals(yytext())) {
-                                                return symbol(ParserSym.IF, yytext());
-                                            }
-                                            return symbol(ParserSym.IDENTIFIER, yytext()); }
+  {Identifier}                              {return symbol(ParserSym.IDENTIFIER, yytext()); }
   /* Constants */
-  {IntegerConstant}                        { return symbol(ParserSym.INTEGER_CONSTANT, yytext()); }
+  {IntegerConstant}                         { return symbol(ParserSym.INTEGER_CONSTANT, yytext()); }
 
   /* operators */
   {Plus}                                    { return symbol(ParserSym.PLUS); }

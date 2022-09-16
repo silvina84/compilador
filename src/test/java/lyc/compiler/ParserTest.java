@@ -66,7 +66,7 @@ public class ParserTest {
         compilationSuccessful(readFromFile("not.txt"));
     }
 
-    @Test
+    @Disabled
     void ifStatement() throws Exception {
         compilationSuccessful(readFromFile("if.txt"));
     }
